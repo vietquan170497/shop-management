@@ -1,85 +1,112 @@
 @extends('pages.admin_layout')
 @section('admin_content')
 {{--echo"1";--}}
+<style>
+    .lable-class{font-size: 15px}
+</style>
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Form Design</h2>
-{{--                    <ul class="nav navbar-right panel_toolbox">--}}
-{{--                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
-{{--                        </li>--}}
-{{--                        <li class="dropdown">--}}
-{{--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>--}}
-{{--                            <ul class="dropdown-menu" role="menu">--}}
-{{--                                <li><a class="dropdown-item" href="#">Settings 1</a>--}}
-{{--                                </li>--}}
-{{--                                <li><a class="dropdown-item" href="#">Settings 2</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </li>--}}
-{{--                        <li><a class="close-link"><i class="fa fa-close"></i></a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    <h2>Thêm danh mục mặt hàng</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link" href="{{URL::to('/dashboard')}}"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
+                    <?php
+                    $msg = Session::get('msg');
+                    if($msg){
+                        echo '<div class="clearfix"></div>
+                                <div class="field form-group"style="margin: auto; align-content: center">
+                                    <div class="alert alert-success alert-dismissible  " style="margin: auto; text-align: center" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <strong>'.$msg.'</strong>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br/>';
+
+                        Session::put("msg",null);
+                    }
+                    ?>
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                    <form action="{{URL::to('/save-category-product')}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+{{--                        <div class="field item form-group">--}}
+{{--                            <label class="col-form-label col-md-3 col-sm-3  label-align lable-class">Loại mặt hàng (<span class="required" style="color: red">*</span>)</label>--}}
+{{--                            <div class="col-md-6 col-sm-6">--}}
+{{--                                <select name="product_type" class="form-control">--}}
+{{--                                    <option value="1">uống</option>--}}
+{{--                                    <option value="2">bánh</option>--}}
+
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align lable-class" for="first-name">Mã loại mặt hàng (<span class="required" style="color: red">*</span>)
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="first-name" required="required" class="form-control ">
+                                <input type="text" name="category_code" required="required" class="form-control ">
                             </div>
                         </div>
+
                         <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align lable-class" for="first-name">Tên loại mặt hàng (<span class="required" style="color: red">*</span>)
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                                <input type="text" name="category_name" required="required" class="form-control ">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <input id="middle-name" class="form-control" type="text" name="middle-name">
+
+{{--                        <div class="field item form-group">--}}
+{{--                            <label class="col-form-label col-md-3 col-sm-3  label-align lable-class">Đơn vị tính (<span class="required" style="color: red">*</span>)</label>--}}
+{{--                            <div class="col-md-6 col-sm-6">--}}
+{{--                                <select name="product_unit" class="form-control">--}}
+{{--                                    <option value="1">cái</option>--}}
+{{--                                    <option value="2">cốc</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="item form-group">--}}
+{{--                            <label class="col-form-label col-md-3 col-sm-3 label-align lable-class" for="first-name">Đơn giá (<span class="required" style="color: red">*</span>)--}}
+{{--                            </label>--}}
+{{--                            <div class="col-md-6 col-sm-6 ">--}}
+{{--                                <input name="product_price" type="text" id="first-name" required="required" class="form-control ">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+                         <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align lable-class">Trạng thái (<span class="required" style="color: red">*</span>)</label>
+                            <div class="col-md-6 col-sm-6">
+                                <select name="category_status" class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <div id="gender" class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                        <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
-                                    </label>
-                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                        <input type="radio" name="gender" value="female" class="join-btn"> Female
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
+
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align lable-class">Mô tả sản phẩm
                             </label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-                                <script>
-                                    function timeFunctionLong(input) {
-                                        setTimeout(function() {
-                                            input.type = 'text';
-                                        }, 60000);
-                                    }
-                                </script>
-                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <textarea name="category_description" class="col-md-6 col-sm-6" name='message' ></textarea></div>
                         </div>
+
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 offset-md-3">
-                                <button class="btn btn-primary" type="button">Cancel</button>
-                                <button class="btn btn-primary" type="reset">Reset</button>
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+{{--                                <button class="btn btn-primary" type="button">Cancel</button>--}}
+                                <button class="btn btn-primary" type="reset">Làm mới</button>
                             </div>
                         </div>
                     </form>

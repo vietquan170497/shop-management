@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="backend/images/iconcoffee.png" type="image/ico" />
+    <link rel="icon" href="{{asset('backend/images/iconcoffee.png')}}" type="image/ico" />
 
     <title>Quản lý cửa hàng</title>
 
@@ -44,7 +44,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="backend/images/user.png" alt="..." class="img-circle profile_img">
+                        <img src="{{asset('backend/images/user.png')}}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
@@ -66,17 +66,17 @@
                     <div class="menu_section">
                         <h3>Cửa hàng</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-newspaper-o"></i> Loại sản phẩm <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-newspaper-o"></i>Danh mục mặt hàng <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="index.html">Thêm loại sản phẩm</a></li>
-                                    <li><a href="index2.html">Danh sách loại sản phẩm</a></li>
+                                    <li><a href="{{URL::to('/add-category-product')}}">Thêm loại mặt hàng</a></li>
+                                    <li><a href="{{URL::to('/all-category-product')}}">Danh sách loại mặt hàng</a></li>
                                 </ul>
                             </li>
 
-                            <li><a><i class="fa fa-book"></i> Sản phẩm <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-book"></i> Mặt hàng <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{URL::to('/add-category-product')}}">Thêm sản phẩm</a></li>
-                                    <li><a href="{{URL::to('/all-category-product')}}">Danh sách sản phẩm</a></li>
+                                    <li><a href="{{URL::to('/add-product')}}">Thêm mặt hàng</a></li>
+                                    <li><a href="{{URL::to('/all-product')}}">Danh sách mặt hàng</a></li>
                                 </ul>
                             </li>
 
@@ -198,7 +198,7 @@
                     <ul class=" navbar-right">
                         <li class="nav-item dropdown open" style="padding-left: 15px;">
                             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img src="backend/images/user.png" alt="">
+                                <img src="{{asset('backend/images/user.png')}}" alt="">
                                     <?php
                                         $name = Session::get('admin_name');
                                         if($name){
